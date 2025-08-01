@@ -9,7 +9,7 @@ const UserProvider = ({ children }) => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/employees/all");
+      const res = await axios.get("https://employee-management-backend-sml6.onrender.com/api/employees/all");
       setAllUsers(res.data.data);
     } catch (error) {
       console.error("Error fetching users:", error);

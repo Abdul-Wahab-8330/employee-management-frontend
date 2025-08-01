@@ -29,7 +29,7 @@ const AssignTaskForm = ({ userId, onSuccess, allAssignedTasks }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(`http://localhost:5000/api/task/assign/${userId}`, {
+      const res = await axios.post(`https://employee-management-backend-sml6.onrender.com/api/task/assign/${userId}`, {
         description,
         status,
         lastDate
@@ -53,7 +53,7 @@ const AssignTaskForm = ({ userId, onSuccess, allAssignedTasks }) => {
 
   const handleStatusChange = async (taskId, newStatus) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/task/update/${userId}/${taskId}`, {
+      const res = await axios.put(`https://employee-management-backend-sml6.onrender.com/api/task/update/${userId}/${taskId}`, {
         status: newStatus
       })
 
@@ -75,7 +75,7 @@ const AssignTaskForm = ({ userId, onSuccess, allAssignedTasks }) => {
 
   const handleDeleteTask = async (userId, taskId) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/api/task/delete/${userId}/${taskId}`);
+      const res = await axios.delete(`https://employee-management-backend-sml6.onrender.com/api/task/delete/${userId}/${taskId}`);
       if (res.data.success) {
         console.log('task deleted')
         toast.success('Task deleted');

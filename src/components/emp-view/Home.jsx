@@ -99,7 +99,7 @@ const EmployeeDashboard = () => {
                                             if (!link) return;
 
                                             try {
-                                                const res = await axios.put(`http://localhost:5000/api/task/submit/${employee.empId}/${task._id}`, {
+                                                const res = await axios.put(`https://employee-management-backend-sml6.onrender.com/api/task/submit/${employee.empId}/${task._id}`, {
                                                     submissionLink: link,
                                                 });
 
@@ -247,7 +247,7 @@ const EmployeeDashboard = () => {
                                                 if (!link) return;
 
                                                 try {
-                                                    const res = await axios.put(`http://localhost:5000/api/task/submit/${employee.empId}/${task._id}`, {
+                                                    const res = await axios.put(`https://employee-management-backend-sml6.onrender.com/api/task/submit/${employee.empId}/${task._id}`, {
                                                         submissionLink: link,
                                                     });
 

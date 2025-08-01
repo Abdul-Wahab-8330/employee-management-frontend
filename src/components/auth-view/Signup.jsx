@@ -56,7 +56,7 @@ const AuthSignup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:5000/api/auth/signup", {
+            const res = await axios.post("https://employee-management-backend-sml6.onrender.com/api/auth/signup", {
                 userName,
                 email,
                 password,
@@ -99,7 +99,7 @@ const AuthSignup = () => {
 
     const handleDelete = async (userId) => {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/users/${userId}`)
+            const res = await axios.delete(`https://employee-management-backend-sml6.onrender.com/api/users/${userId}`)
 
             if (res.data.success) {
                 setAllCreatedUsers((prevUsers) =>
