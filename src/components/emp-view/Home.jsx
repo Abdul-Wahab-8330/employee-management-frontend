@@ -58,7 +58,7 @@ const EmployeeDashboard = () => {
                         return (
                             <div
                                 key={index}
-                                className="bg-white rounded-xl shadow-md p-4 border-l-4 border-purple-500 hover:shadow-lg transition duration-200"
+                                className="bg-white rounded-xl shadow-md p-4 border-l-4 border-purple-500 hover:shadow-lg transition duration-200 max-w-full"
                             >
                                 <p className="text-gray-700 text-lg font-medium"><strong className='text-purple-800'>Task: </strong>{task.description}</p>
 
@@ -85,7 +85,7 @@ const EmployeeDashboard = () => {
                                     <span className="text-sm px-2 py-1 bg-purple-100 text-purple-700 rounded-full">
                                         {task.status?.toUpperCase()}
                                     </span>
-                                    
+
                                 </div>
 
                                 {/* ✅ Add submission input if task is awaited and not expired */}
@@ -163,7 +163,7 @@ const EmployeeDashboard = () => {
 
 
     return (
-        <div className="md:px-6 px-4 py-8 bg-gradient-to-br from-purple-50 to-purple-100 min-h-screen">
+        <div className="md:px-6 px-4 py-8 bg-gradient-to-br from-purple-50 to-purple-100 min-h-screen max-w-full">
             <h2 className="md:text-3xl text-2xl font-bold text-purple-800 mb-5 md:px-4 px-1">Welcome to Employee Dashboard 👋 '{employee.fullName}'</h2>
 
             {/* <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 bg-white py-4 px-4 rounded-3xl shadow-sm">
@@ -248,20 +248,20 @@ const EmployeeDashboard = () => {
             {dueIn24Hours.length > 0 && (
                 <div className="mb-8 bg-red-100 px-4 rounded-3xl py-4">
                     <span className="md:text-2xl text-xl font-bold text-red-600">⚠️ Tasks Due in 24 Hours ({dueIn24Hours.length})</span>
-                    <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4 mt-2">
+                    <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4 mt-2 max-w-full">
                         {dueIn24Hours.map((task, index) => {
                             const dueDate = new Date(task.lastDate);
                             const hoursLeft = Math.round((dueDate - now) / (1000 * 60 * 60));
 
                             return (
-                                <div key={index} className="bg-white border-l-4 border-red-600 rounded-xl shadow-sm transition-shadow hover:shadow-md p-4">
+                                <div key={index} className="bg-white border-l-4 w-full border-red-600 rounded-xl shadow-sm transition-shadow hover:shadow-md p-4 ">
                                     <p className="text-gray-700 text-lg font-semibold"><span className='font-bold text-purple-600'>Task:</span> {task.description}</p>
                                     <p className="text-sm text-red-500 font-medium py-2">⏰ Due in {hoursLeft == 0 ? 'less than 1' : hoursLeft} hour{hoursLeft !== 1 && hoursLeft !== 0 ? "s" : ""}</p>
                                     <p className="text-sm text-gray-700 mt-1">Deadline: {dueDate.toLocaleString()}</p>
                                     <span className="text-sm mt-2 inline-block px-2 py-1 bg-red-100 text-red-600 rounded-full">
                                         {task.status.toUpperCase()}
                                     </span>
-                                    
+
                                     {task.status === "awaited" && !isPastDeadline(task) && (
                                         <form
                                             onSubmit={async (e) => {
@@ -294,19 +294,22 @@ const EmployeeDashboard = () => {
                                             className="mt-4 flex gap-2"
                                         >
 
-                                            <input
-                                                type="url"
-                                                name={`link-${task._id}`}
-                                                placeholder="Enter submission link"
-                                                required
-                                                className="flex-1 px-2 py-1 border border-gray-400 rounded text-sm"
-                                            />
-                                            <button
-                                                type="submit"
-                                                className="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700"
-                                            >
-                                                Submit
-                                            </button>
+                                            <div className="flex flex-col md:flex-row gap-2 w-full">
+                                                <input
+                                                    type="url"
+                                                    name={`link-${task._id}`}
+                                                    placeholder="Enter submission link"
+                                                    required
+                                                    className="flex-1 px-2 py-1 border border-gray-400 rounded text-sm"
+                                                />
+                                                <button
+                                                    type="submit"
+                                                    className="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700"
+                                                >
+                                                    Submit
+                                                </button>
+                                            </div>
+
                                         </form>
                                     )}
                                     <p className="text-sm text-end text-gray-500 mt-3">

@@ -10,8 +10,11 @@ const AuthLogin = () => {
     const { setIsAuthenticated, setUser } = useContext(authContext);
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
 
     const handleSubmit = async (e) => {
+        setLoading(true)
         e.preventDefault();
         try {
             const res = await axios.post('https://employee-management-backend-sml6.onrender.com/api/auth/login', {
@@ -25,10 +28,13 @@ const AuthLogin = () => {
                 setIsAuthenticated(true);
                 setUser(res.data.user);
                 toast.success('LoggedIn successfully')
+                setLoading(false)
             }
         } catch (error) {
             console.log(error);
             toast.error('Username or Password is incorrect')
+            setLoading(false)
+
         }
     };
 
@@ -61,8 +67,8 @@ const AuthLogin = () => {
                         className="focus:border-purple-500 focus:ring-purple-500"
                     />
                 </div>
-                <Button className="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold transition duration-300" type="submit">
-                    Login
+                <Button disabled={loading} className="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold transition duration-300" type="submit">
+                    {loading ? 'Signing In...' : 'Login'}
                 </Button>
             </form>
         </div>
