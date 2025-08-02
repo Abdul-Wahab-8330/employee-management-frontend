@@ -78,7 +78,7 @@ const EmployeeDashboard = () => {
                                 )}
 
                                 <p className="text-sm text-gray-700 mt-1">
-                                    Deadline: <span className="font-medium">{dueDate.toLocaleString()}</span>
+                                    deadline: <span className="font-medium">{dueDate.toLocaleString()}</span>
                                 </p>
 
                                 <div className="flex justify-between items-center mt-2">
@@ -247,8 +247,8 @@ const EmployeeDashboard = () => {
 
             {dueIn24Hours.length > 0 && (
                 <div className="mb-8 bg-red-100 px-4 rounded-3xl py-4">
-                    <h3 className="text-2xl font-bold text-red-600 mb-4">⚠️ Tasks Due in 24 Hours ({dueIn24Hours.length})</h3>
-                    <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4">
+                    <span className="md:text-2xl text-xl font-bold text-red-600">⚠️ Tasks Due in 24 Hours ({dueIn24Hours.length})</span>
+                    <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4 mt-2">
                         {dueIn24Hours.map((task, index) => {
                             const dueDate = new Date(task.lastDate);
                             const hoursLeft = Math.round((dueDate - now) / (1000 * 60 * 60));
