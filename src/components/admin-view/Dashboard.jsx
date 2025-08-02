@@ -16,7 +16,7 @@ function AdminDashboard() {
             <div className="max-w-5xl w-full space-y-10">
                 {/* Welcome Message */}
                 <div className="text-center space-y-4">
-                    <h1 className="text-5xl font-bold text-purple-400 drop-shadow-md">
+                    <h1 className="md:text-5xl text-4xl font-bold text-purple-400 drop-shadow-md">
                         Welcome to the Admin Panel
                     </h1>
                     <p className="text-lg text-gray-300">

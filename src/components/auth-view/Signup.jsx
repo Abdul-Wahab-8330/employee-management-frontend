@@ -127,15 +127,15 @@ const AuthSignup = () => {
     return (
 
         // Added this wrapping div with the gradient background
-        <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-100 pb-20 px-6">
+        <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-100 pb-20 md:px-6 px-3">
             {/* Create User FAB */}
             <Dialog>
                 <DialogTrigger asChild>
-                    <button className="z-1 flex fixed bottom-6 right-6 bg-purple-700 hover:bg-purple-800 text-white px-4 py-4 rounded-full shadow-lg transition duration-200">
+                    <button className="z-1 flex fixed bottom-6 right-6 bg-purple-700 hover:bg-purple-800 text-white md:px-4 px-3 md:py-4 py-3 rounded-full shadow-lg transition duration-200">
                         Create New Employee &nbsp; <Plus />
                     </button>
                 </DialogTrigger>
-                <DialogContent className="max-h-[90vh] overflow-auto w-[60vw] bg-white shadow-2xl rounded-2xl">
+                <DialogContent className="max-h-[90vh] overflow-auto w-[85vw] bg-white shadow-2xl rounded-2xl">
                     <div className="">
                         <div className="font-bold text-3xl pb-8  flex text-purple-800">
                             Create a new Employee
@@ -196,17 +196,17 @@ const AuthSignup = () => {
 
             {/* Stats Cards */}
 
-            <div className="text-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent pt-8 pb-2 font-bold text-4xl sm:px-2 px-4 ">
+            <div className="text-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent pt-8 pb-2 font-bold md:text-4xl text-3xl sm:px-2 px-4 ">
                 Welcome to Admin Dashboard
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 rounded-3xl py-4 mt-2 bg-white/45 shadow-sm">
-                <div className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white rounded-xl p-6 pb-9 shadow-lg">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-3 px-4 rounded-3xl py-4 mt-2 bg-white/45 shadow-sm">
+                <div className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white rounded-xl md:p-6 md:pb-9 p-4 pb-5 shadow-lg">
                     <p className="text-lg font-semibold">Total Employees</p>
                     <h2 className="text-3xl font-bold mt-2">{allCreatedUsers?.length || 0}</h2>
                 </div>
 
-                <div className="bg-gradient-to-br from-purple-400 to-pink-500 text-white rounded-xl p-6 pb-9 shadow-lg">
+                <div className="bg-gradient-to-br from-purple-400 to-pink-500 text-white rounded-xl md:p-6 md:pb-9 p-4 pb-5 shadow-lg">
                     <p className="text-lg font-semibold">Active Employees</p>
                     <h2 className="text-3xl font-bold mt-2">
                         {allCreatedUsers?.filter(
@@ -215,7 +215,7 @@ const AuthSignup = () => {
                     </h2>
                 </div>
 
-                <div className="bg-gradient-to-br from-indigo-500 to-fuchsia-600 text-white rounded-xl p-6 pb-9 shadow-lg">
+                <div className="bg-gradient-to-br from-indigo-500 to-fuchsia-600 text-white rounded-xl md:p-6 md:pb-9 p-4 pb-5 shadow-lg">
                     <p className="text-lg font-semibold">Total Salary</p>
                     <h2 className="text-3xl font-bold mt-2">
                         Rs.{" "}
@@ -225,7 +225,7 @@ const AuthSignup = () => {
                     </h2>
                 </div>
 
-                <div className="bg-gradient-to-br from-violet-500 to-purple-700 text-white rounded-xl p-6 pb-9 shadow-lg">
+                <div className="bg-gradient-to-br from-violet-500 to-purple-700 text-white rounded-xl md:p-6 md:pb-9 p-4 pb-5 shadow-lg">
                     <p className="text-lg font-semibold">Departments</p>
                     <h2 className="text-3xl font-bold mt-2">
                         {
@@ -342,7 +342,7 @@ const AuthSignup = () => {
                                                     Assign Task <MoveRight />
                                                 </Button>
                                             </DialogTrigger>
-                                            <DialogContent className='overflow-y-auto max-h-[95vh]'>
+                                            <DialogContent className='overflow-y-auto max-h-[85vh] max-w-[90vw] w-full'>
                                                 <AssignTaskForm
                                                     userId={user._id}
                                                     onSuccess={fetchUsers}
@@ -357,7 +357,7 @@ const AuthSignup = () => {
                                 </TableRow>
                             })
                         ) : (
-                            <p className="text-center flex text-gray-600 text-2xl mt-10"> {allCreatedUsers?.length > 0 ? <center><img src={loadingGif} className='w-7 h-7 mr-4' alt="" /></center> : ''}{allCreatedUsers?.length > 0 ? 'Loading Employees...' : 'No Employees Added yet!'}</p>
+                            <p className="text-center flex text-gray-600 md:text-2xl text-md mt-10"> {allCreatedUsers?.length > 0 ? <center><img src={loadingGif} className='w-7 h-7 mr-4' alt="" /></center> : ''}{allCreatedUsers?.length > 0 ? 'Loading Employees...' : 'No Employees'}</p>
                         )}
                     </TableBody>
                 </Table>

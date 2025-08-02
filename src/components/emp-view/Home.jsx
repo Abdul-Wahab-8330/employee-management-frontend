@@ -72,7 +72,7 @@ const EmployeeDashboard = () => {
 
                                 {/* Keep showing due soon warning for others */}
                                 {task.status !== "rejected" && isDueSoon && (
-                                    <p className="text-sm text-orange-600 font-semibold mt-1">
+                                    <p className="text-sm text-orange-600 font-semibold py-2">
                                         ⚠️ Due in {hoursLeft == 0 ? 'less than 1' : hoursLeft} hour{hoursLeft !== 1 && hoursLeft !== 0 ? "s" : ""}
                                     </p>
                                 )}
@@ -85,9 +85,7 @@ const EmployeeDashboard = () => {
                                     <span className="text-sm px-2 py-1 bg-purple-100 text-purple-700 rounded-full">
                                         {task.status?.toUpperCase()}
                                     </span>
-                                    <p className="text-sm text-gray-500">
-                                        Assigned At: {new Date(task.createdAt).toLocaleString()}
-                                    </p>
+                                    
                                 </div>
 
                                 {/* ✅ Add submission input if task is awaited and not expired */}
@@ -123,7 +121,6 @@ const EmployeeDashboard = () => {
                                         className="mt-4 flex gap-2"
                                     >
                                         {/* <label>Enter Submission Link</label> */}
-                                        <label className='text-gray-700 flex items-center'><ArrowRightCircle /></label>
 
                                         <input
                                             type="url"
@@ -140,6 +137,11 @@ const EmployeeDashboard = () => {
                                         </button>
                                     </form>
                                 )}
+                                <div>
+                                    <p className="text-sm text-gray-500 mt-5 text-end">
+                                        Assigned At: {new Date(task.createdAt).toLocaleString()}
+                                    </p>
+                                </div>
                             </div>
                         );
                     })}
@@ -161,8 +163,8 @@ const EmployeeDashboard = () => {
 
 
     return (
-        <div className="px-6 py-8 bg-gradient-to-br from-purple-50 to-purple-100 min-h-screen">
-            <h2 className="text-3xl font-bold text-purple-800 mb-5 px-4">Welcome to Employee Dashboard 👋 '{employee.fullName}'</h2>
+        <div className="md:px-6 px-4 py-8 bg-gradient-to-br from-purple-50 to-purple-100 min-h-screen">
+            <h2 className="md:text-3xl text-2xl font-bold text-purple-800 mb-5 md:px-4 px-1">Welcome to Employee Dashboard 👋 '{employee.fullName}'</h2>
 
             {/* <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 bg-white py-4 px-4 rounded-3xl shadow-sm">
                 <div className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white p-6 rounded-lg shadow text-center">
@@ -190,55 +192,55 @@ const EmployeeDashboard = () => {
 
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 bg-white py-4 px-4 rounded-3xl shadow-sm items-start">
-  {/* Chart - takes 1st column on md and full width on mobile */}
-  <div>
-    <TaskChartCard tasks={employee.tasks} />
-  </div>
+                {/* Chart - takes 1st column on md and full width on mobile */}
+                <div>
+                    <TaskChartCard tasks={employee.tasks} />
+                </div>
 
-  {/* Cards for larger screens (2nd column) */}
-  <div className="hidden md:grid gap-4">
-    <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-      <p className="font-semibold">Awaited</p>
-      <h4 className="text-lg font-bold">{groupedTasks.awaited.length}</h4>
-    </div>
-    <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-      <p className="font-semibold">Submitted</p>
-      <h4 className="text-lg font-bold">{groupedTasks.submitted.length}</h4>
-    </div>
-  </div>
+                {/* Cards for larger screens (2nd column) */}
+                <div className="hidden md:grid gap-4">
+                    <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+                        <p className="font-semibold">Awaited</p>
+                        <h4 className="text-lg font-bold">{groupedTasks.awaited.length}</h4>
+                    </div>
+                    <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+                        <p className="font-semibold">Submitted</p>
+                        <h4 className="text-lg font-bold">{groupedTasks.submitted.length}</h4>
+                    </div>
+                </div>
 
-  {/* Cards for larger screens (3rd column) */}
-  <div className="hidden md:grid gap-4">
-    <div className="bg-gradient-to-br from-green-600 to-green-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-      <p className="font-semibold">Approved</p>
-      <h4 className="text-lg font-bold">{groupedTasks.approved.length}</h4>
-    </div>
-    <div className="bg-gradient-to-br from-red-600 to-red-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-      <p className="font-semibold">Rejected</p>
-      <h4 className="text-lg font-bold">{groupedTasks.rejected.length}</h4>
-    </div>
-  </div>
+                {/* Cards for larger screens (3rd column) */}
+                <div className="hidden md:grid gap-4">
+                    <div className="bg-gradient-to-br from-green-600 to-green-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+                        <p className="font-semibold">Approved</p>
+                        <h4 className="text-lg font-bold">{groupedTasks.approved.length}</h4>
+                    </div>
+                    <div className="bg-gradient-to-br from-red-600 to-red-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+                        <p className="font-semibold">Rejected</p>
+                        <h4 className="text-lg font-bold">{groupedTasks.rejected.length}</h4>
+                    </div>
+                </div>
 
-  {/* Cards for mobile: shows only on small screens */}
-  <div className="md:hidden grid grid-cols-2 gap-4">
-    <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-      <p className="font-semibold">Awaited</p>
-      <h4 className="text-lg font-bold">{groupedTasks.awaited.length}</h4>
-    </div>
-    <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-      <p className="font-semibold">Submitted</p>
-      <h4 className="text-lg font-bold">{groupedTasks.submitted.length}</h4>
-    </div>
-    <div className="bg-gradient-to-br from-green-600 to-green-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-      <p className="font-semibold">Approved</p>
-      <h4 className="text-lg font-bold">{groupedTasks.approved.length}</h4>
-    </div>
-    <div className="bg-gradient-to-br from-red-600 to-red-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-      <p className="font-semibold">Rejected</p>
-      <h4 className="text-lg font-bold">{groupedTasks.rejected.length}</h4>
-    </div>
-  </div>
-</div>
+                {/* Cards for mobile: shows only on small screens */}
+                <div className="md:hidden grid grid-cols-2 gap-4">
+                    <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+                        <p className="font-semibold">Awaited</p>
+                        <h4 className="text-lg font-bold">{groupedTasks.awaited.length}</h4>
+                    </div>
+                    <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+                        <p className="font-semibold">Submitted</p>
+                        <h4 className="text-lg font-bold">{groupedTasks.submitted.length}</h4>
+                    </div>
+                    <div className="bg-gradient-to-br from-green-600 to-green-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+                        <p className="font-semibold">Approved</p>
+                        <h4 className="text-lg font-bold">{groupedTasks.approved.length}</h4>
+                    </div>
+                    <div className="bg-gradient-to-br from-red-600 to-red-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+                        <p className="font-semibold">Rejected</p>
+                        <h4 className="text-lg font-bold">{groupedTasks.rejected.length}</h4>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -253,15 +255,13 @@ const EmployeeDashboard = () => {
 
                             return (
                                 <div key={index} className="bg-white border-l-4 border-red-600 rounded-xl shadow-sm transition-shadow hover:shadow-md p-4">
-                                    <p className="text-gray-700 text-lg font-semibold">Task: {task.description}</p>
-                                    <p className="text-sm text-red-500 font-medium">⏰ Due in {hoursLeft == 0 ? 'less than 1' : hoursLeft} hour{hoursLeft !== 1 && hoursLeft !== 0 ? "s" : ""}</p>
+                                    <p className="text-gray-700 text-lg font-semibold"><span className='font-bold text-purple-600'>Task:</span> {task.description}</p>
+                                    <p className="text-sm text-red-500 font-medium py-2">⏰ Due in {hoursLeft == 0 ? 'less than 1' : hoursLeft} hour{hoursLeft !== 1 && hoursLeft !== 0 ? "s" : ""}</p>
                                     <p className="text-sm text-gray-700 mt-1">Deadline: {dueDate.toLocaleString()}</p>
                                     <span className="text-sm mt-2 inline-block px-2 py-1 bg-red-100 text-red-600 rounded-full">
                                         {task.status.toUpperCase()}
                                     </span>
-                                    <p className="text-sm text-end text-gray-500">
-                                        Assigned At: {new Date(task.createdAt).toLocaleString()}
-                                    </p>
+                                    
                                     {task.status === "awaited" && !isPastDeadline(task) && (
                                         <form
                                             onSubmit={async (e) => {
@@ -293,7 +293,6 @@ const EmployeeDashboard = () => {
                                             }}
                                             className="mt-4 flex gap-2"
                                         >
-                                            <label className='text-gray-700 flex items-center'><ArrowRightCircle /></label>
 
                                             <input
                                                 type="url"
@@ -310,6 +309,9 @@ const EmployeeDashboard = () => {
                                             </button>
                                         </form>
                                     )}
+                                    <p className="text-sm text-end text-gray-500 mt-3">
+                                        Assigned At: {new Date(task.createdAt).toLocaleString()}
+                                    </p>
                                 </div>
 
 

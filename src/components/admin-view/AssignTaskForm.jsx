@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import axios from "axios";
 import { Trash2 } from 'lucide-react';
 import toast from "react-hot-toast";
+import { Separator } from "../ui/separator";
 
 
 const statusOptions = ["all", "awaited", "submitted", "approved", "rejected"];
@@ -91,8 +92,8 @@ const AssignTaskForm = ({ userId, onSuccess, allAssignedTasks }) => {
 
 
   const filteredTasks = filterStatus === "all"
-  ? assignedTasks
-  : assignedTasks.filter(task => task.status === filterStatus);
+    ? assignedTasks
+    : assignedTasks.filter(task => task.status === filterStatus);
 
 
 
@@ -100,10 +101,10 @@ const AssignTaskForm = ({ userId, onSuccess, allAssignedTasks }) => {
 
 
   return (
-    <div>
+    <div className="w-full overflow-x-hidden">
 
       <form onSubmit={handleAssign} className="space-y-4">
-        <div className="">
+        <div className="w-full">
           <Label className='mt-9 mb-2'>Task Description</Label>
           <Input
             type="text"
@@ -148,98 +149,120 @@ const AssignTaskForm = ({ userId, onSuccess, allAssignedTasks }) => {
       </form>
 
 
-{/* --- Filter Controls --- */}
-<div className="mt-6 mb-4">
-  <p className="font-semibold text-purple-800 mb-2">Filter by Status:</p>
-  <div className="flex gap-2 flex-wrap">
-    {statusOptions.map((status) => (
-      <button
-        key={status}
-        onClick={() => setFilterStatus(status)}
-        className={`px-3 py-1 rounded-full border text-sm font-medium
+      {/* --- Filter Controls --- */}
+      <div className="mt-6 mb-4">
+        <p className="font-semibold text-purple-800 mb-2">Filter by Status:</p>
+        <div className="flex gap-2 flex-wrap">
+          {statusOptions.map((status) => (
+            <button
+              key={status}
+              onClick={() => setFilterStatus(status)}
+              className={`px-3 py-1 rounded-full border text-sm font-medium
           ${filterStatus === status
-            ? "bg-purple-600 text-white border-purple-700 shadow"
-            : "bg-white text-purple-700 border-purple-300 hover:bg-purple-100"}`}
-      >
-        {status.charAt(0).toUpperCase() + status.slice(1)}
-      </button>
-    ))}
-  </div>
-</div>
-        {
-          filteredTasks && filteredTasks.length > 0 ? filteredTasks.map((task) => {
-              const isPastDeadline = new Date() > new Date(task.lastDate);
-              const isActionDisabled = isPastDeadline;
+                  ? "bg-purple-600 text-white border-purple-700 shadow"
+                  : "bg-white text-purple-700 border-purple-300 hover:bg-purple-100"}`}
+            >
+              {status.charAt(0).toUpperCase() + status.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+      {
+        filteredTasks && filteredTasks.length > 0 ? filteredTasks.map((task) => {
+          const isPastDeadline = new Date() > new Date(task.lastDate);
+          const isActionDisabled = isPastDeadline;
 
-              return (
-                <div
-                  key={task._id}
-                  className={`flex items-center justify-between mb-3 p-4 border rounded-md shadow-sm ${isPastDeadline ? "bg-gray-100 opacity-70 cursor-not-allowed" : "bg-white"
+          return (
+            <div
+              key={task._id}
+              className={`flex flex-col gap-3 mb-3 p-4 border rounded-md shadow-sm ${isPastDeadline ? "bg-gray-100 opacity-70 cursor-not-allowed" : "bg-white"
+                }`}
+            >
+
+              <div>
+                <p className="md:font-semibold font-semibold md:text-lg text-md w-full">{task.description}</p>
+              </div>
+
+              <div>
+                <p
+                  className={`font-normal ${task.status === "approved"
+                    ? "text-green-600 "
+                    : task.status === "submitted"
+                      ? "text-blue-600"
+                      : task.status === "rejected"
+                        ? "text-red-600"
+                        : "text-yellow-600"
                     }`}
                 >
-                  <div>
-                    <p className="font-semibold">{task.description}</p>
-                    <p
-                      className={`font-semibold ${task.status === "approved"
-                        ? "text-green-600 "
-                        : task.status === "submitted"
-                          ? "text-blue-600"
-                          : task.status === "rejected"
-                            ? "text-red-600"
-                            : "text-yellow-600"
-                        }`}
-                    >
-                      Status: {task.status}
-                    </p>
-                    {task.status.toLowerCase() == 'submitted' && <div>
-                      <span className=" flex"><strong className="text-gray-700">Submission: </strong><a href={task.submissionLink} className="text-blue-600 underline" target='_blank'> {task.submissionLink}</a></span>
-                    </div>}
-                    <p className="text-sm text-gray-500">
-                      Assigned on: {new Date(task.createdAt).toLocaleString()}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      Deadline: {new Date(task.lastDate).toLocaleString()}
-                    </p>
-
-                    {isPastDeadline && (task.status === "awaited" || task.status === "rejected") && (
-                      <p className="text-sm text-red-500 mt-1 font-medium">
-                        ⛔ Deadline Passed — Auto Rejected
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    {task.status.toLowerCase() == 'submitted' || task.status.toLowerCase() == 'approved' || task.status.toLowerCase() == 'rejected' ?
-                      <select
-                        value={task.status || ""}
-                        onChange={(e) => handleStatusChange(task._id, e.target.value)}
-                        disabled={isPastDeadline}
-                        className={`p-1 border rounded ${isPastDeadline ? "bg-gray-200 text-gray-500" : ""
-                          }`}
-                      >
-                        <option>Change Status</option>
-                        <option value="approved">Approved</option>
-                        <option value="rejected">Rejected</option>
-                      </select>
-                      : <p className="text-center text-sm p-2 text-gray-600 border rounded-3xl cursor-pointer" title='once submitted by employee, you will have option to either approve or reject the task'>Not submitted yet!</p>
-                    }
-
-                    <button
-                      onClick={() => handleDeleteTask(userId, task._id)}
-                      className={`text-red-500 hover:text-red-700 ${isPastDeadline ? "pointer-events-none opacity-50" : ""
-                        }`}
-                      disabled={isPastDeadline}
-                    >
-                      <Trash2 size={20} />
-                    </button>
-                  </div>
+                  Status: <span className={` ${task.status === "approved"
+                    ? "bg-green-600 rounded-3xl text-white px-2 pb-1 "
+                    : task.status === "submitted"
+                      ? "bg-blue-600 rounded-3xl  text-white px-2 pb-1"
+                      : task.status === "rejected"
+                        ? "bg-red-600 rounded-3xl  text-white px-2 pb-1"
+                        : "bg-yellow-600 rounded-3xl  text-white px-2 pb-1"
+                    }`}>{task.status}</span>
+                </p>
+              </div>
+              <div>
+                {task.status.toLowerCase() == 'submitted' && <div>
+                  <span className=" flex"><strong className="text-gray-700">Submission: </strong><a href={task.submissionLink} className="text-blue-600 underline" target='_blank'> {task.submissionLink}</a></span>
+                </div>}
+                <div>
+                  <p className="text-sm items-baseline  text-gray-500">
+                    Assigned on: {new Date(task.createdAt).toLocaleString()}
+                  </p>
                 </div>
-              );
-            })
+                <div>
+                  <p className="text-sm text-gray-600">
+                    Deadline: {new Date(task.lastDate).toLocaleString()}
+                  </p>
+                </div>
 
-            : <div className="mt-4">No tasks assigned yet</div>
-        }
-      </div>
+                {isPastDeadline && (task.status === "awaited" || task.status === "rejected") && (
+                  <p className="text-sm text-red-500 mt-1 font-medium">
+                    ⛔ Deadline Passed — Auto Rejected
+                  </p>
+                )}
+              </div>
+
+              <Separator />
+
+              <Label className='mt-3  text-gray-600'>Change Status</Label>
+              <div className="flex items-center gap-2 justify-between">
+                {task.status.toLowerCase() == 'submitted' || task.status.toLowerCase() == 'approved' || task.status.toLowerCase() == 'rejected' ?
+                  <select
+                    value={task.status || ""}
+                    onChange={(e) => handleStatusChange(task._id, e.target.value)}
+                    disabled={isPastDeadline}
+                    className={`p-1 border rounded ${isPastDeadline ? "bg-gray-200 text-gray-500" : ""
+                      }`}
+                  >
+                    <option>Change Status</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                  : <p className="text-center text-sm p-2 text-gray-600 border rounded-3xl cursor-pointer" title='once submitted by employee, you will have option to either approve or reject the task'>Not submitted yet!</p>
+                }
+
+                <button
+                  onClick={() => handleDeleteTask(userId, task._id)}
+                  className={`text-red-500 hover:text-red-600 bg-red-100 p-2 rounded-3xl ${isPastDeadline ? "pointer-events-none opacity-50" : ""
+                    }`}
+                  disabled={isPastDeadline}
+                >
+                  <Trash2 size={20} />
+                </button>
+              </div>
+
+
+            </div>
+          );
+        })
+
+          : <div className="mt-4">No tasks assigned yet</div>
+      }
+    </div>
 
 
 
