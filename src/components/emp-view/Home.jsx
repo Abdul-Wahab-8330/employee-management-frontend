@@ -189,34 +189,57 @@ const EmployeeDashboard = () => {
 
 
 
-            <div className="grid md:grid-cols-3 grid-cols-1 gap-4 mb-8 bg-white py-2 px-4 rounded-3xl shadow-sm items-center">
-                {/* Left: Chart */}
-                <div>
-                    <TaskChartCard tasks={employee.tasks} />
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 bg-white py-4 px-4 rounded-3xl shadow-sm items-start">
+  {/* Chart - takes 1st column on md and full width on mobile */}
+  <div>
+    <TaskChartCard tasks={employee.tasks} />
+  </div>
 
-                {/* Right: 4 cards in 2x2 grid */}
-                <div className="grid grid-cols-1 gap-4">
-                    <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-                        <p className="font-semibold">Awaited</p>
-                        <h4 className="text-lg font-bold">{groupedTasks.awaited.length}</h4>
-                    </div>
-                    <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-                        <p className="font-semibold">Submitted</p>
-                        <h4 className="text-lg font-bold">{groupedTasks.submitted.length}</h4>
-                    </div>
-                </div>
-                <div className='grid grid-cols-1 gap-4'>
-                    <div className="bg-gradient-to-br from-green-600 to-green-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-                        <p className="font-semibold">Approved</p>
-                        <h4 className="text-lg font-bold">{groupedTasks.approved.length}</h4>
-                    </div>
-                    <div className="bg-gradient-to-br from-red-600 to-red-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
-                        <p className="font-semibold">Rejected</p>
-                        <h4 className="text-lg font-bold">{groupedTasks.rejected.length}</h4>
-                    </div>
-                </div>
-            </div>
+  {/* Cards for larger screens (2nd column) */}
+  <div className="hidden md:grid gap-4">
+    <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+      <p className="font-semibold">Awaited</p>
+      <h4 className="text-lg font-bold">{groupedTasks.awaited.length}</h4>
+    </div>
+    <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+      <p className="font-semibold">Submitted</p>
+      <h4 className="text-lg font-bold">{groupedTasks.submitted.length}</h4>
+    </div>
+  </div>
+
+  {/* Cards for larger screens (3rd column) */}
+  <div className="hidden md:grid gap-4">
+    <div className="bg-gradient-to-br from-green-600 to-green-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+      <p className="font-semibold">Approved</p>
+      <h4 className="text-lg font-bold">{groupedTasks.approved.length}</h4>
+    </div>
+    <div className="bg-gradient-to-br from-red-600 to-red-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+      <p className="font-semibold">Rejected</p>
+      <h4 className="text-lg font-bold">{groupedTasks.rejected.length}</h4>
+    </div>
+  </div>
+
+  {/* Cards for mobile: shows only on small screens */}
+  <div className="md:hidden grid grid-cols-2 gap-4">
+    <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+      <p className="font-semibold">Awaited</p>
+      <h4 className="text-lg font-bold">{groupedTasks.awaited.length}</h4>
+    </div>
+    <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+      <p className="font-semibold">Submitted</p>
+      <h4 className="text-lg font-bold">{groupedTasks.submitted.length}</h4>
+    </div>
+    <div className="bg-gradient-to-br from-green-600 to-green-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+      <p className="font-semibold">Approved</p>
+      <h4 className="text-lg font-bold">{groupedTasks.approved.length}</h4>
+    </div>
+    <div className="bg-gradient-to-br from-red-600 to-red-500 text-white py-7 px-3 rounded-lg shadow text-center text-sm">
+      <p className="font-semibold">Rejected</p>
+      <h4 className="text-lg font-bold">{groupedTasks.rejected.length}</h4>
+    </div>
+  </div>
+</div>
+
 
 
 
